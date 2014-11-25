@@ -1,8 +1,4 @@
 
-" An example for a vimrc file.
-"
-" Maintainer:	Bram Moolenaar <Bram@vim.org>
-" Last change:	2011 Apr 15
 "
 " To use it, copy it to
 "     for Unix and OS/2:  ~/.vimrc
@@ -21,22 +17,109 @@ set nocompatible
 
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
+set whichwrap+=<,>,h,l
 
 if has("vms")
   set nobackup		" do not keep a backup file, use versions instead
 else
   set backup		" keep a backup file
 endif
+
+set autoread " to auto read when a file is changed from the outside
+
+" For user interface
+" Turn on the wild menu
+set wildmenu
+
+" Ignore compiled files
+set wildignore=*.o,*~,*.pyc
+
+set nu
 set history=50		" keep 50 lines of command line history
 set ruler		" show the cursor position all the time
 set showcmd		" display incomplete commands
+set cmdheight=2 " Height of the command bar
 set incsearch		" do incremental searching
+set magic "for regular expressions turn magic on
+set ignorecase " ignore case when searching
+set smartcase " when searching try to be smart about cases
+set laststatus=2 " always show the status line
+set showmatch " show matching brackets when text indicator is over them
+set mat=2 " how many tenths of a second to blink when matching brackets
+
+" For colors and fonts
+" Enable syntax highlighting
+syntax enable
+
+" Set utf8 as standard encoding
+set encoding=utf8
+
+" Use Unix as the standard file type
+set ffs=unix,mac,dos
+
+" For files, backups and undo
+" Turn backup off
+set nobackup
+set nowb
+set noswapfile
+
+" For Text, tab and indent
+" Use spaces instead of tabs
+set expandtab
+
+" Be smart when using tabs :)
+set smarttab
+
+" 1 tab == 4 spaces
+set shiftwidth=4
+set tabstop=4
+
+" Linebreak on 500 characters
+set lbr
+set tw=500
+
+set ai "Auto indent
+set si "Smart indent
+set wrap "Wrap lines
 
 " For Win32 GUI: remove 't' flag from 'guioptions': no tearoff menu entries
 " let &guioptions = substitute(&guioptions, "t", "", "g")
 
+" With a map leader it's possible to do extra key combinations
+" like <leader>w save files the current file
+let mapleader = ","
+let g:mapleader = ","
+
+" Fast saving
+nmap <leader>w :w!<cr>
+
+" Useful mappings for managing tabs
+map <leader>tn :tabnew<cr>
+map <leader>to :tabonly<cr>
+map <leader>tc :tabclose<cr>
+map <leader>tm :tabmove
+
+" Opens a new tab with the current buffer's path
+" super useful when editing files in the same directory
+map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
+
+" Switch CWD to the directory of the open buffer
+map <leader>cd :cd %:p:h<cr>:pwd<cr>
+
 " Don't use Ex mode, use Q for formatting
 map Q gq
+
+" Remap VIM 0 to first non-blank character
+map 0 ^
+
+" Delete trailing white space on save, useful for Python and CoffeeScript :)
+func! DeleteTrailingWS()
+  exe "normal mz"
+  %s/\s\+$//ge
+  exe "normal `z"
+endfunc
+autocmd BufWrite *.py :call DeleteTrailingWS()
+autocmd BufWrite *.coffee :call DeleteTrailingWS()
 
 " CTRL-U in insert mode deletes a lot.  Use CTRL-G u to first break undo,
 " so that you can undo CTRL-U after inserting a line break.
@@ -95,76 +178,3 @@ if !exists(":DiffOrig")
   command DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis
 		  \ | wincmd p | diffthis
 endif
-
-" The ultimate Vim configuration
-" => General
-set autoread
-set nu
-
-" With a map leader it's possible to do extra key combinations
-" like <leader>w save files the current file
-let mapleader = ","
-let g:mapleader = ","
-
-" Fast saving
-nmap <leader>w :w!<cr>
-
-" => User interface
-" Turn on the wild menu
-set wildmenu
-
-" Ignore compiled files
-set wildignore=*.o,*~,*.pyc
-
-" Always show current position
-set ruler
-
-" Height of the command bar
-set cmdheight=2
-
-" Configure backspace so it acts as it should act
-set backspace=eol,start,indent
-set whichwrap+=<,>,h,l
-
-" For regular expressions turn magic on
-set magic
-
-" Ignore case when searching
-set ignorecase
-
-" => Colors and fonts
-" Enable syntax highlighting
-syntax enable
-
-colorscheme blackboard
-" Set utf8 as standard encoding
-set encoding=utf8
-
-" => Files, backups and undo
-" Turn backup off
-set nobackup
-set nowb
-set noswapfile
-
-" => Text, tab and indent
-" Use spaces instead of tabs
-set expandtab
-
-" Be smart when using tabs :)
-set smarttab
-
-" 1 tab == 4 spaces
-set shiftwidth=4
-set tabstop=4
-
-" Linebreak on 500 characters
-set lbr
-set tw=500
-
-set ai "Auto indent
-set si "Smart indent
-set wrap "Wrap lines
-
-" => Status line
-" Always show the status line
-set laststatus=2
