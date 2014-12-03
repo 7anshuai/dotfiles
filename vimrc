@@ -34,18 +34,22 @@ set wildmenu
 " Ignore compiled files
 set wildignore=*.o,*~,*.pyc
 
-set nu
-set history=50		" keep 50 lines of command line history
+" set cursorline  " highlight current line
+set number      " enable line numbers
+set history=50  " keep 50 lines of command line history
 set ruler		" show the cursor position all the time
-set showcmd		" display incomplete commands
 set cmdheight=2 " Height of the command bar
-set incsearch		" do incremental searching
-set magic "for regular expressions turn magic on
-set ignorecase " ignore case when searching
-set smartcase " when searching try to be smart about cases
+set hlsearch    " highlight searchs
+set incsearch	" do incremental searching
+set ignorecase  " ignore case when searching
+set magic       " for regular expressions turn magic on
+set smartcase   " when searching try to be smart about cases
 set laststatus=2 " always show the status line
-set showmatch " show matching brackets when text indicator is over them
-set mat=2 " how many tenths of a second to blink when matching brackets
+set showmatch   " show matching brackets when text indicator is over them
+set showcmd		" display incomplete commands
+set showmode    " show the current mode
+set title       " show the filename in the window titlebar
+set mat=2       " how many tenths of a second to blink when matching brackets
 
 " For colors and fonts
 " Enable syntax highlighting
@@ -145,6 +149,11 @@ if has("autocmd")
   " 'cindent' is on in C files, etc.
   " Also load indent files, to automatically do language-dependent indenting.
   filetype plugin indent on
+  
+  " Treat .json files as .js
+  autocmd BufNewFile,BufRead *.json setfiletype json syntax=javascript
+  " Treat .md files as Markdown
+  autocmd BufNewFile,BufRead *.md setlocal filetype=markdown
 
   " Put these in an autocmd group, so that we can delete them easily.
   augroup vimrcEx
