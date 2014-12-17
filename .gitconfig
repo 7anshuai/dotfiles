@@ -1,4 +1,39 @@
+[alias]
+    l = log --pretty=oneline -n 20 --graph --abbrev-commit
+    s = status -s
+    
+    # Clone a repository including submodules
+    c = clone --recursive
+    
+    # Show the diff between the latest commit and the current state
+    d = !"git diff-index --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat"
+
+    # Pull in remote changes for the current repository and all its sudmodules
+    p = !"git pull; git suvmodule foreach git pull origin master"
+
+    # Commit all changes
+    ca = !git add -A && git commit -av
+
+    # Switch to a branch, creating it if necessary
+    go = "!f() { git checkout -b \"$1\" 2> /dev/null || git checkou \"$1\"; }; f"
+
+    # Show verbose output about tags, branchs, or remotes
+    tags = tag -l
+    branchs = branch -a
+    remotes = remote -v
+
+    # Amend the currently staged files to the latest commit
+    amend = commit --amend --reuse-message=HEAD
+    
 [core]
-	editor = vim
+    editor = vim
 [merge]
-	tool = vimdiff
+    tool = vimdiff
+
+[url "git@github.com:"]
+    insteadOf = "gh:"
+    pushInsteadOf = "github:"
+    pushInsteadOf = "git://github.com/"
+
+[url "git://github.com/"]
+    insteadOf = "github:"
