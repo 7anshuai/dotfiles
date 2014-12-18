@@ -27,6 +27,11 @@ endif
 
 set autoread " to auto read when a file is changed from the outside
 
+" Use the Solarized Dark theme
+set background=dark
+colorscheme solarized
+let g:solarized_termtrans=1
+
 " For user interface
 " Turn on the wild menu
 set wildmenu
