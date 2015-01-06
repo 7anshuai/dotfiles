@@ -1,0 +1,54 @@
+{
+	"color_scheme": "Packages/Color Scheme - Default/Monokai.tmTheme",
+	"default_encoding": "UTF-8",
+	"default_line_ending": "unix",
+	"file_exclude_patterns":
+	[
+		".DS_Store",
+		"Desktop.ini",
+		"*.pyc",
+		"._*",
+		"Thumbs.db",
+		".Spotlight-V100",
+		".Trashes"
+	],
+	"folder_exclude_patterns":
+	[
+		".git",
+		"node_modules"
+	],
+	"font_face": "Monaco",
+	"font_size": 13,
+	"highlight_line": true,
+	"highlight_modified_tabs": true,
+	"match_brackets": true,
+	"match_brackets_angle": true,
+	"ignored_packages":
+	[
+		"Batch File",
+		"ActionScript",
+		"Pascal",
+		"R",
+		"Graphviz",
+		"C#",
+		"Vintage",
+		"D",
+		"Groovy",
+		"ASP"
+	],
+	"rulers":
+	[
+		120
+	],
+	"show_encoding": true,
+	"soda_classic_tabs": true,
+	"soda_folder_tabs": true,
+	"spell_check": false,
+	"tab_size": 4,
+	"theme": "Soda Dark 3.sublime-theme",
+	"translate_tabs_to_spaces": true,
+	"trim_trailling_white_spaces_on_save": true,
+	"use_tab_stops": true,
+	"word_wrap": "true",
+	"wrap_width": 120
+}
