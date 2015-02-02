@@ -1,0 +1,13 @@
+# Vi-style editing
+# set editing-mode vi
+
+# Make tab autocomplete regardless of filename case
+set complemtion-ignore-case on
+
+# Use the text that has already been typed as the prefix for searching through
+# # commands (i.e. more intelligent Up/Down behavior)
+"\e[B": history-search-forward
+"\e[A": history-search-backward
+
+# Do not autocomplete hidden files unless the pattern explicitly begins with a dot
+set match-hidden-files off
