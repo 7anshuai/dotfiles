@@ -35,3 +35,6 @@ fi;
 if type _git &> /dev/null && [ -f "$(brew --prefix)/etc/bash_completion.d/git-completion.bash" ]; then
     complete -o default -o nospace -F _git g;
 fi;
+
+# Enable powerline
+source /Library/Python/2.7/site-packages/powerline/bindings/bash/powerline.sh
