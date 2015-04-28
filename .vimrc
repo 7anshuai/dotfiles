@@ -59,6 +59,7 @@ set mat=2       " how many tenths of a second to blink when matching brackets
 " For colors and fonts
 " Enable syntax highlighting
 syntax enable
+set t_Co=256
 
 " Set utf8 as standard encoding
 set encoding=utf8
@@ -154,7 +155,7 @@ if has("autocmd")
   " 'cindent' is on in C files, etc.
   " Also load indent files, to automatically do language-dependent indenting.
   filetype plugin indent on
-  
+
   " Treat .json files as .js
   autocmd BufNewFile,BufRead *.json setfiletype json syntax=javascript
   " Treat .md files as Markdown
@@ -192,3 +193,22 @@ if !exists(":DiffOrig")
   command DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis
 		  \ | wincmd p | diffthis
 endif
+
+" Set powerline bindings
+set rtp+=/Library/Python/2.7/site-packages/powerline/bindings/vim
+
+let g:minBufExplForceSyntaxEnable = 1
+python from powerline.vim import setup as powerline_setup
+python powerline_setup()
+python del powerline_setup
+
+if ! has('gui_running')
+   set ttimeoutlen=10
+   augroup FastEscape
+      autocmd!
+      au InsertEnter * set timeoutlen=0
+      au InsertLeave * set timeoutlen=1000
+   augroup END
+endif
+
+set noshowmode " Hide the default mode text (e.g. -- INSERT -- below the statusline)
