@@ -1,6 +1,7 @@
 [alias]
     l = log --pretty=oneline -n 20 --graph --abbrev-commit
     s = status -s
+    st = status
     
     # Clone a repository including submodules
     c = clone --recursive
@@ -14,8 +15,10 @@
     # Commit all changes
     ca = !git add -A && git commit -av
 
+    ci = commit
+
     # Switch to a branch, creating it if necessary
-    go = "!f() { git checkout -b \"$1\" 2> /dev/null || git checkou \"$1\"; }; f"
+    go = "!f() { git checkout -b \"$1\" 2> /dev/null || git checkout \"$1\"; }; f"
 
     # Show verbose output about tags, branchs, or remotes
     tags = tag -l
@@ -25,10 +28,17 @@
     # Amend the currently staged files to the latest commit
     amend = commit --amend --reuse-message=HEAD
     
+    discard = checkout --
+    unstaged = reset HEAD --
+
 [core]
     editor = vim
+    excludesfile = ~/.gitignore
 [merge]
     tool = vimdiff
+
+    # Include summaries of merged commits in newly created merge commit messages
+    log = true
 
 [url "git@github.com:"]
     insteadOf = "gh:"
