@@ -52,6 +52,16 @@ function powerline() {
     . /Library/Python/2.7/site-packages/powerline/bindings/bash/powerline.sh
 }
 
+
+# Redis del mutli keys
+function dels() {
+    if [ $# -eq 0 ]; then
+        echo 'Usage: dels pattern';
+    else
+        redis-cli KEYS "$@" | xargs redis-cli DEL;
+    fi;
+}
+
 # use Git's colored diff when availalbe
 hash git &>/dev/null;
 if [ $? -eq 0 ]; then
