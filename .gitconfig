@@ -29,7 +29,7 @@
     amend = commit --amend --reuse-message=HEAD
     
     discard = checkout --
-    unstaged = reset HEAD --
+    unstage = reset HEAD --
 
 [core]
     editor = vim
