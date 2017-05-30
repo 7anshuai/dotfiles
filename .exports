@@ -8,10 +8,3 @@ export HISTIGNORE="ls:cd:cd -:pwd:exit:date:* --help";
 
 # Hightlight section titles in manual pages
 export LESS_TERMCAP_md="${yellow}";
-
-# Always enable colored `grep` output
-export GREP_OPTIONS="--color=auto";
-
-# This load nvm
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh";
