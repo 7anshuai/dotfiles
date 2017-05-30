@@ -39,7 +39,7 @@ set wildmenu
 " Ignore compiled files
 set wildignore=*.o,*~,*.pyc
 
-" set cursorline  " highlight current line
+set cursorline  " highlight current line
 set number      " enable line numbers
 set history=50  " keep 50 lines of command line history
 set ruler		" show the cursor position all the time
@@ -193,14 +193,6 @@ if !exists(":DiffOrig")
   command DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis
 		  \ | wincmd p | diffthis
 endif
-
-" Set powerline bindings
-set rtp+=/Library/Python/2.7/site-packages/powerline/bindings/vim
-
-let g:minBufExplForceSyntaxEnable = 1
-python from powerline.vim import setup as powerline_setup
-python powerline_setup()
-python del powerline_setup
 
 if ! has('gui_running')
    set ttimeoutlen=10
