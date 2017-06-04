@@ -86,8 +86,11 @@ set wrap "Wrap lines
 let mapleader = ","
 let g:mapleader = ","
 
-" Fast saving
+" Fast saving (,w)
 nmap <leader>w :w!<cr>
+
+" Save a file as root (,W)
+nmap <leader>W :w !sudo tee % > /dev/null<cr>
 
 " Useful mappings for managing tabs
 map <leader>tn :tabnew<cr>
@@ -116,6 +119,16 @@ func! DeleteTrailingWS()
 endfunc
 autocmd BufWrite *.py :call DeleteTrailingWS()
 autocmd BufWrite *.coffee :call DeleteTrailingWS()
+
+" Strip trailing whitespace (,ss)
+func! StripWhitespace()
+  let save_cursor = getpos(".")
+  let old_query = getreg("/")
+  :%s/\s\+$//e
+  call setpos(".", save_cursor)
+  call setreg("/", old_query)
+endfunc
+nmap <leader>ss :call StripWhitespace()<cr>
 
 " CTRL-U in insert mode deletes a lot.  Use CTRL-G u to first break undo,
 " so that you can undo CTRL-U after inserting a line break.
