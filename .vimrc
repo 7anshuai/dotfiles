@@ -14,19 +14,31 @@ set nocompatible
 set backspace=indent,eol,start
 set whichwrap+=<,>,h,l
 
-set autoread " to auto read when a file is changed from the outside
+" Set to auto read when a file is changed from the outside
+set autoread
 
-" Use the Solarized Dark theme
-set background=dark
-colorscheme solarized
-let g:solarized_termtrans=1
+" With a map leader it's possible to do extra key combinations
+" like <leader>w save files the current file
+let mapleader = ","
+let g:mapleader = ","
 
-" For user interface
+" Fast saving (,w)
+nmap <leader>w :w!<cr>
+
+" Save a file as root (,W)
+nmap <leader>W :w !sudo tee % > /dev/null<cr>
+
+" VIM user interface
 " Turn on the wild menu
 set wildmenu
 
 " Ignore compiled files
 set wildignore=*.o,*~,*.pyc
+if has("win16") || has("win32")
+    set wildignore+=.git\*,.hg\*,.svn\*
+else
+    set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
+endif
 
 set cursorline  " highlight current line
 set number      " enable line numbers
@@ -45,10 +57,27 @@ set showmode    " show the current mode
 set title       " show the filename in the window titlebar
 set mat=2       " how many tenths of a second to blink when matching brackets
 
-" For colors and fonts
+" Colors and Fonts
 " Enable syntax highlighting
 syntax enable
-set t_Co=256
+
+" Enable 256 colors palette in Gnome Terminal
+if $COLORTERM == 'gnome-terminal'
+    set t_Co=256
+endif
+
+" Use the Solarized Dark theme
+set background=dark
+colorscheme solarized
+let g:solarized_termtrans=1
+
+" Set extra options when running in GUI mode
+if has("gui_running")
+    set guioptions-=T
+    set guioptions-=e
+    set t_Co=256
+    set guitablabel=%M\ %t
+endif
 
 " Set utf8 as standard encoding
 set encoding=utf8
@@ -56,13 +85,13 @@ set encoding=utf8
 " Use Unix as the standard file type
 set ffs=unix,mac,dos
 
-" For files, backups and undo
+" Files, backups and undo
 " Turn backup off
 set nobackup
 set nowb
 set noswapfile
 
-" For Text, tab and indent
+" Text, tab and indent
 " Use spaces instead of tabs
 set expandtab
 
@@ -81,22 +110,16 @@ set ai "Auto indent
 set si "Smart indent
 set wrap "Wrap lines
 
-" With a map leader it's possible to do extra key combinations
-" like <leader>w save files the current file
-let mapleader = ","
-let g:mapleader = ","
-
-" Fast saving (,w)
-nmap <leader>w :w!<cr>
-
-" Save a file as root (,W)
-nmap <leader>W :w !sudo tee % > /dev/null<cr>
+" Moving around, tabs and windows
+" Disable highlight when <leader><cr> is pressed
+map <silent> <leader><cr> :noh<cr>
 
 " Useful mappings for managing tabs
 map <leader>tn :tabnew<cr>
 map <leader>to :tabonly<cr>
 map <leader>tc :tabclose<cr>
 map <leader>tm :tabmove
+map <leader>t<leader> :tabnext
 
 " Opens a new tab with the current buffer's path
 " super useful when editing files in the same directory
@@ -105,20 +128,9 @@ map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
 " Switch CWD to the directory of the open buffer
 map <leader>cd :cd %:p:h<cr>:pwd<cr>
 
-" Don't use Ex mode, use Q for formatting
-map Q gq
-
+" Editing mappings
 " Remap VIM 0 to first non-blank character
 map 0 ^
-
-" Delete trailing white space on save, useful for Python and CoffeeScript :)
-func! DeleteTrailingWS()
-    exe "normal mz"
-    %s/\s\+$//ge
-    exe "normal `z"
-endfunc
-autocmd BufWrite *.py :call DeleteTrailingWS()
-autocmd BufWrite *.coffee :call DeleteTrailingWS()
 
 " Strip trailing whitespace (,ss)
 func! StripWhitespace()
@@ -129,6 +141,10 @@ func! StripWhitespace()
     call setreg("/", old_query)
 endfunc
 nmap <leader>ss :call StripWhitespace()<cr>
+
+if has("autocmd")
+    autocmd BufWritePre *.txt,*.js,*.py,*.wiki,*.sh,*.coffee :call StripWhitespace()
+endif
 
 " CTRL-U in insert mode deletes a lot.  Use CTRL-G u to first break undo,
 " so that you can undo CTRL-U after inserting a line break.
