@@ -53,7 +53,7 @@ set smartcase   " when searching try to be smart about cases
 set laststatus=2 " always show the status line
 set showmatch   " show matching brackets when text indicator is over them
 set showcmd		" display incomplete commands
-set showmode    " show the current mode
+set noshowmode  " hide the default mode text (e.g. -- INSERT -- below the statusline)
 set title       " show the filename in the window titlebar
 set mat=2       " how many tenths of a second to blink when matching brackets
 
@@ -109,6 +109,29 @@ set tw=500
 set ai "Auto indent
 set si "Smart indent
 set wrap "Wrap lines
+
+" Visual mode related
+" Pressing * or # searches for the current selection
+" Super useful! From an idea by Michael Naumann
+vnoremap <silent> * :<C-u>call VisualSelection('', '')<CR>/<C-R>=@/<CR><CR>
+vnoremap <silent> # :<C-u>call VisualSelection('', '')<CR>?<C-R>=@/<CR><CR>
+
+function! VisualSelection(direction, extra_filter) range
+    let l:saved_reg = @"
+    execute "normal! vgvy"
+
+    let l:pattern = escape(@", "\\/.*'$^~[]")
+    let l:pattern = substitute(l:pattern, "\n$", "", "")
+
+    if a:direction == 'gv'
+        call CmdLine("Ack '" . l:pattern . "' " )
+    elseif a:direction == 'replace'
+        call CmdLine("%s" . '/'. l:pattern . '/')
+    endif
+
+    let @/ = l:pattern
+    let @" = l:saved_reg
+endfunction
 
 " Moving around, tabs and windows
 " Disable highlight when <leader><cr> is pressed
@@ -217,5 +240,3 @@ if ! has('gui_running')
         au InsertLeave * set timeoutlen=1000
     augroup END
 endif
-
-set noshowmode " Hide the default mode text (e.g. -- INSERT -- below the statusline)
