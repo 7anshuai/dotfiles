@@ -22,11 +22,15 @@ set autoread
 let mapleader = ","
 let g:mapleader = ","
 
+" Fast exiting (,q)
+nmap <leader>q :q!<cr>
+
 " Fast saving (,w)
 nmap <leader>w :w!<cr>
 
 " Save a file as root (,W)
-nmap <leader>W :w !sudo tee % > /dev/null<cr>
+command W w !sudo tee % > /dev/null
+nmap <leader>W :W<cr>
 
 " VIM user interface
 " Turn on the wild menu
