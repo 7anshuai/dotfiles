@@ -154,6 +154,11 @@ map <leader>tc :tabclose<cr>
 map <leader>tm :tabmove
 map <leader>t<leader> :tabnext
 
+" Let ',tl' toggle between this and last accessed tab
+let g:lasttab = 1
+nmap <leader>tl :exe "tabn ".g:lasttab<cr>
+au Tableave * let g:lasttab = tabpagenr()
+
 " Opens a new tab with the current buffer's path
 " super useful when editing files in the same directory
 map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
