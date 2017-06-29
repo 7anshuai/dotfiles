@@ -61,6 +61,11 @@ set noshowmode  " hide the default mode text (e.g. -- INSERT -- below the status
 set title       " show the filename in the window titlebar
 set mat=2       " how many tenths of a second to blink when matching brackets
 
+" In many terminal emulators the mouse works just fine, thus enable it.
+if has('mouse')
+    set mouse=a
+endif
+
 " Colors and Fonts
 " Enable syntax highlighting
 syntax enable
@@ -188,10 +193,8 @@ endif
 " so that you can undo CTRL-U after inserting a line break.
 inoremap <C-U> <C-G>u<C-U>
 
-" In many terminal emulators the mouse works just fine, thus enable it.
-if has('mouse')
-    set mouse=a
-endif
+" Toggle paste mode on and off
+map <leader>pp :setlocal paste!<cr>
 
 " Only do this part when compiled with support for autocommands.
 if has("autocmd")
