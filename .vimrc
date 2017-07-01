@@ -193,6 +193,9 @@ endif
 " so that you can undo CTRL-U after inserting a line break.
 inoremap <C-U> <C-G>u<C-U>
 
+" Pressing ,sp will toggle and untoggle spell checking
+map <leader>sp :setlocal spell!<cr>
+
 " Toggle paste mode on and off
 map <leader>pp :setlocal paste!<cr>
 
