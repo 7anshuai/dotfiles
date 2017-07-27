@@ -2,7 +2,7 @@
 # set editing-mode vi
 
 # Make tab autocomplete regardless of filename case
-set complemtion-ignore-case on
+set completion-ignore-case on
 
 # Use the text that has already been typed as the prefix for searching through
 # # commands (i.e. more intelligent Up/Down behavior)
