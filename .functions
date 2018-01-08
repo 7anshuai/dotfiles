@@ -5,6 +5,15 @@ function mkd() {
     mkdir -p "$@" && cd "$_";
 }
 
+# Tree view a folder and its subfolders
+function tree() {
+    if [ $# -eq 0 ]; then
+        find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g';
+    else
+        find "$@" -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g';
+    fi;
+}
+
 # Create a data URL from a file
 function dataurl() {
     local mimeType=$(file -b --mime-type "$1");
