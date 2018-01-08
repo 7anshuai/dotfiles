@@ -10,7 +10,7 @@
     d = !"git diff-index --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat"
 
     # Pull in remote changes for the current repository and all its sudmodules
-    p = !"git pull; git suvmodule foreach git pull origin master"
+    p = !"git pull; git submodule foreach git pull origin master"
 
     # Commit all changes
     ca = !git add -A && git commit -av
